@@ -1,7 +1,7 @@
 package com.imran.example.learningspringboot.controller;
 
 import com.imran.example.learningspringboot.model.Content;
-import com.imran.example.learningspringboot.repository.ContentCollectionRepository;
+import com.imran.example.learningspringboot.repository.ContentRepository;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -13,9 +13,13 @@ import java.util.List;
 @RequestMapping("/api/content")
 @CrossOrigin
 public class ContentController {
-    private final ContentCollectionRepository repository;
+    //in memory db
+    //    private final ContentCollectionRepository repository;
 
-    public ContentController(ContentCollectionRepository repository) {
+    //h2 db
+    private final ContentRepository repository;
+
+    public ContentController(ContentRepository repository) {
         this.repository = repository;
     }
 
@@ -34,9 +38,8 @@ public class ContentController {
     /* --Insert content-- */
     @ResponseStatus(HttpStatus.CREATED) //send 201 status
     @PostMapping("")
-    public Content insertContent(@Valid @RequestBody Content contentBody) {
-        repository.insertOne(contentBody);
-        return contentBody;
+    public void insertContent(@Valid @RequestBody Content contentBody) {
+        repository.save(contentBody);
     }
 
     /* --Update content-- */
@@ -46,7 +49,7 @@ public class ContentController {
         if (!repository.existsById(id)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Content Not Found");
         }
-        repository.updateOne(contentBody, id);
+        repository.save(contentBody);
     }
 
     /* --delete content-- */
@@ -56,7 +59,7 @@ public class ContentController {
         if (!repository.existsById(id)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Content Not Found");
         }
-        repository.deleteOne(id);
+        repository.deleteById(id);
     }
 
 }
