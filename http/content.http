@@ -9,7 +9,6 @@ POST http://localhost:8090/api/content
 Content-Type: application/json
 
 {
-  "id": 3,
   "title": "dfgdfg",
   "description": "My third blog post",
   "status": "IDEA",

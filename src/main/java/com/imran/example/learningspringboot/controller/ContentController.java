@@ -1,6 +1,7 @@
 package com.imran.example.learningspringboot.controller;
 
 import com.imran.example.learningspringboot.model.Content;
+import com.imran.example.learningspringboot.model.Status;
 import com.imran.example.learningspringboot.repository.ContentRepository;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -13,10 +14,6 @@ import java.util.List;
 @RequestMapping("/api/content")
 @CrossOrigin
 public class ContentController {
-    //in memory db
-    //    private final ContentCollectionRepository repository;
-
-    //h2 db
     private final ContentRepository repository;
 
     public ContentController(ContentRepository repository) {
@@ -62,4 +59,13 @@ public class ContentController {
         repository.deleteById(id);
     }
 
+    @GetMapping("/filter/{keyword}")
+    public List<Content> getContentsByKeyword(@PathVariable String keyword) {
+        return repository.findAllByTitleContains(keyword);
+    }
+
+    @GetMapping("/filter/status/{status}")
+    public List<Content> getContentsByStatus(@PathVariable Status status) {
+        return repository.listByStatus(status);
+    }
 }
