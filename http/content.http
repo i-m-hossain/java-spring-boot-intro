@@ -23,7 +23,7 @@ PUT http://localhost:8090/api/content/1
 Content-Type: application/json
 
 {
-  "id": 1,
+  "id": 7,
   "title": "MY FIRST POST!!!",
   "description": "MY FIRST POST!!!",
   "status": "IDEA",
@@ -38,7 +38,7 @@ PUT http://localhost:8090/api/content/99
 Content-Type: application/json
 
 {
-  "id": 1,
+  "id": 11,
   "title": "MY FIRST POST!!!",
   "description": "MY FIRST POST!!!",
   "status": "IDEA",
@@ -49,4 +49,4 @@ Content-Type: application/json
 }
 
 ### delete by id
-DELETE http://localhost:8090/api/content/2
+DELETE http://localhost:8090/api/content/7
